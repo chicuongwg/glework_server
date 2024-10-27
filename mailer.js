@@ -1,9 +1,9 @@
 const nodemailer = require("nodemailer");
 
-// Thiết lập transporter
+// Set up transporter
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com", // SMTP host của Gmail
-    port: 587, // Cổng cho TLS
+    host: "smtp.gmail.com", // SMTP host of Gmail
+    port: 587, // Port TLS
     secure: false, // Sử dụng false cho TLS
     auth: {
         user: process.env.EMAIL_USER, // Email bạn sử dụng để gửi
@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-// Hàm gửi email xác nhận
+// Send email confirmation
 const sendConfirmationEmail = (to, confirmationLink) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,
@@ -24,7 +24,7 @@ const sendConfirmationEmail = (to, confirmationLink) => {
     return transporter.sendMail(mailOptions);
 };
 
-// Hàm gửi email đặt lại mật khẩu
+// Send email to reset password
 const sendResetPasswordEmail = async (email, resetLink) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,
