@@ -5,6 +5,7 @@ const router = express.Router();
 const db = require("../models");
 const User = db.User;
 
+
 router.post("/", async (req, res) => {
     const { firstName, lastName, dateOfBirth, phoneNumber, email, password } = req.body;
 
@@ -95,12 +96,14 @@ router.get("/confirm/:userId", async (req, res) => {
         user.isConfirmed = true; // Giả sử bạn đã thêm cột `isConfirmed`
         await user.save();
 
-        res.status(200).json({ message: "Account confirmed successfully." });
+        // Redirect to the frontend login page
+        res.redirect(`${process.env.FRONTEND_URL}/login`);
     } catch (error) {
         console.error("Error confirming user:", error);
         res.status(500).json({ message: "Internal server error." });
     }
 });
+
 
 // Login
 // Route đăng nhập
