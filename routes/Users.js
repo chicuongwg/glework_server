@@ -14,6 +14,11 @@ router.post("/", async (req, res) => {
         return res.status(400).json({ message: "All fields are required" });
     }
 
+    // Validate email format
+    if (!/\S+@\S+\.\S+/.test(email)) {
+        return res.status(400).json({ message: "Email must be a valid email address" });
+    }
+
     // Convert DD-MM-YYYY to YYYY-MM-DD
     const [day, month, year] = dateOfBirth.split("-");
     const formattedDateOfBirth = `${year}-${month}-${day}`; 
@@ -38,14 +43,14 @@ router.post("/", async (req, res) => {
             ? await existingUser.update({
                 firstName,
                 lastName,
-                dateOfBirth,
+                dateOfBirth: formattedDateOfBirth, // Sử dụng định dạng ngày đã chuyển đổi
                 phoneNumber,
                 password: hashedPassword,
             })
             : await User.create({
                 firstName,
                 lastName,
-                dateOfBirth,
+                dateOfBirth: formattedDateOfBirth, // Sử dụng định dạng ngày đã chuyển đổi
                 phoneNumber,
                 email,
                 password: hashedPassword,
@@ -55,7 +60,7 @@ router.post("/", async (req, res) => {
         const confirmationLink = `http://${process.env.HOST}:${process.env.PORT}/users/confirm/${newUser.id}`; // Sử dụng biến môi trường
 
         // Gửi email xác nhận
-        await sendConfirmationEmail(email, confirmationLink);
+        await sendConfirmationEmail(firstName, lastName, email, confirmationLink); // Cập nhật để gửi tên người dùng
 
         res.status(201).json({
             id: newUser.id,
@@ -79,8 +84,6 @@ router.post("/", async (req, res) => {
     }
 });
 
-
-
 router.get("/confirm/:userId", async (req, res) => {
     const { userId } = req.params;
 
@@ -93,7 +96,7 @@ router.get("/confirm/:userId", async (req, res) => {
         }
 
         // Cập nhật trạng thái xác nhận (thêm cột `isConfirmed` trong bảng User)
-        user.isConfirmed = true; // Giả sử bạn đã thêm cột `isConfirmed`
+        user.isConfirmed = true; // Giả sử bạn đã thêm cột `isConfirm¡ed`
         await user.save();
 
         // Redirect to the frontend login page
@@ -103,7 +106,6 @@ router.get("/confirm/:userId", async (req, res) => {
         res.status(500).json({ message: "Internal server error." });
     }
 });
-
 
 // Login
 // Route đăng nhập
@@ -183,27 +185,40 @@ router.post("/forgot-password", async (req, res) => {
 });
 
 // Route để đặt lại mật khẩu
+// Route để hiển thị form (GET)
+router.get("/reset-password/:userId", async (req, res) => {
+    const { userId } = req.params;
+
+    const user = await User.findByPk(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found." });
+    }
+
+    res.send(`
+        <form action="/users/reset-password/${userId}" method="POST">
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required>
+            <button type="submit">Reset Password</button>
+        </form>
+    `);
+});
+
+// Route để xử lý đặt lại mật khẩu (POST)
 router.post("/reset-password/:userId", async (req, res) => {
     const { userId } = req.params;
     const { newPassword } = req.body;
 
-    // Validate input field
     if (!newPassword) {
         return res.status(400).json({ message: "New password is required." });
     }
 
     try {
-        // Tìm người dùng theo ID
         const user = await User.findByPk(userId);
-
         if (!user) {
             return res.status(404).json({ message: "User not found." });
         }
 
-        // Hash mật khẩu mới
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        
-        // Cập nhật mật khẩu
         user.password = hashedPassword;
         await user.save();
 
@@ -213,5 +228,6 @@ router.post("/reset-password/:userId", async (req, res) => {
         res.status(500).json({ message: "Internal server error." });
     }
 });
+
 
 module.exports = router;
