@@ -1,6 +1,9 @@
+// app.js
 require("dotenv").config(); // Load biến môi trường từ .env
 const express = require("express");
-const cors = require("cors"); 
+const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocs = require("./config/swagger"); // Nhập cấu hình Swagger
 const app = express();
 
 // Middleware
@@ -11,8 +14,11 @@ app.use(express.json());
 const db = require("./models");
 
 // Routers
-const usersRouter = require("./routes/Users");
-app.use("/users", usersRouter); 
+const usersRouter = require("./routes/Users"); // Cấu hình các routes của user
+app.use("/users", usersRouter);
+
+// Cung cấp tài liệu API
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Sử dụng biến môi trường từ .env để lấy host port
 const HOST = process.env.HOST || 'localhost';

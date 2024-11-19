@@ -1,4 +1,7 @@
 const nodemailer = require("nodemailer");
+const bcrypt = require('bcrypt');
+const db = require('./models'); // Import db để lấy mô hình User
+const User = db.User; // Lấy mô hình User từ db
 
 // Set up transporter
 const transporter = nodemailer.createTransport({
@@ -47,15 +50,44 @@ const sendConfirmationEmail = async (firstName, lastName, email, confirmationLin
 
 // Send email to reset password
 const sendResetPasswordEmail = async (email, resetLink) => {
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: "Đặt lại mật khẩu của bạn",
-        text: `Nhấp vào liên kết này để đặt lại mật khẩu của bạn: ${resetLink}`,
-        html: `<p>Nhấp vào <a href="${resetLink}">đây</a> để đặt lại mật khẩu của bạn.</p>`,
-    };
+    // Tạo mật khẩu ngẫu nhiên
+    const newPassword = generateRandomPassword(6);
+    
+    // Hash mật khẩu mới
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    return transporter.sendMail(mailOptions);
+    // Cập nhật mật khẩu trong cơ sở dữ liệu
+    try {
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            throw new Error("User not found");
+        }
+        await user.update({ password: hashedPassword });
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: "Đặt lại mật khẩu của bạn",
+            text: `Mật khẩu mới của bạn là: ${newPassword}`,
+            html: `<p>Mật khẩu mới của bạn là: <strong>${newPassword}</strong>`,
+        };
+
+        await transporter.sendMail(mailOptions);
+    } catch (error) {
+        console.error("Error updating password:", error);
+        throw error; // Hoặc xử lý lỗi theo cách khác
+    }
+};
+
+// Hàm tạo mật khẩu ngẫu nhiên
+const generateRandomPassword = (length = 6) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
+    return result;
 };
 
 // Xuất các hàm
