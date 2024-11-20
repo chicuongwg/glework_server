@@ -31,6 +31,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false, // Mặc định là chưa xác nhận
         },
+        address: {
+            type: DataTypes.STRING,
+            allowNull: true, // Not required
+        },
+        city: {
+            type: DataTypes.STRING,
+            allowNull: true, // Not required
+        },
     });
 
     return User;
