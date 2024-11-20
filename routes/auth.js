@@ -1,10 +1,10 @@
 const express = require("express");
-const userController = require("../controllers/UserCtrl");
+const authController = require("../controllers/AuthCtrl");
 const router = express.Router();
 
 /**
  * @swagger
- * /users/register:
+ * /auth/register:
  *   post:
  *     summary: Register a new user
  *     description: Register a new user and send a confirmation email.
@@ -45,11 +45,11 @@ const router = express.Router();
  *       409:
  *         description: User already exists
  */
-router.post("/register", userController.register);
+router.post("/register", authController.register);
 
 /**
  * @swagger
- * /users/confirm/{userId}:
+ * /auth/confirm/{userId}:
  *   get:
  *     summary: Confirm email for user
  *     description: Confirm a user's email by visiting this endpoint.
@@ -66,11 +66,11 @@ router.post("/register", userController.register);
  *       404:
  *         description: User not found
  */
-router.get("/confirm/:userId", userController.confirmEmail);
+router.get("/confirm/:userId", authController.confirmEmail);
 
 /**
  * @swagger
- * /users/login:
+ * /auth/login:
  *   post:
  *     summary: Login a user
  *     description: Login a user with email and password.
@@ -99,11 +99,11 @@ router.get("/confirm/:userId", userController.confirmEmail);
  *       403:
  *         description: Email not confirmed
  */
-router.post("/login", userController.login);
+router.post("/login", authController.login);
 
 /**
  * @swagger
- * /users/forgot-password:
+ * /auth/forgot-password:
  *   post:
  *     summary: Request password reset
  *     description: Send an email with password reset instructions.
@@ -127,11 +127,11 @@ router.post("/login", userController.login);
  *       404:
  *         description: User not found
  */
-router.post("/forgot-password", userController.forgotPassword);
+router.post("/forgot-password", authController.forgotPassword);
 
 /**
  * @swagger
- * /users/reset-password/{userId}:
+ * /auth/reset-password/{userId}:
  *   get:
  *     summary: Get password reset form
  *     description: This endpoint provides the user with a form to reset the password.
@@ -148,11 +148,11 @@ router.post("/forgot-password", userController.forgotPassword);
  *       404:
  *         description: User not found
  */
-router.get("/reset-password/:userId", userController.resetPassword);
+router.get("/reset-password/:userId", authController.resetPassword);
 
 /**
  * @swagger
- * /users/reset-password/{userId}:
+ * /auth/reset-password/{userId}:
  *   post:
  *     summary: Reset user password
  *     description: Reset the user's password with a new one.
@@ -182,6 +182,6 @@ router.get("/reset-password/:userId", userController.resetPassword);
  *       404:
  *         description: User not found
  */
-router.post("/reset-password/:userId", userController.resetPassword);
+router.post("/reset-password/:userId", authController.resetPassword);
 
 module.exports = router;
