@@ -47,7 +47,7 @@ module.exports = {
             password: hashedPassword,
           });
 
-      const confirmationLink = `http://${process.env.HOST}:${process.env.PORT}/users/confirm/${newUser.id}`;
+      const confirmationLink = `http://${process.env.HOST}:${process.env.PORT}/auth/confirm/${newUser.id}`;
 
       await sendConfirmationEmail(firstName, lastName, email, confirmationLink);
 
