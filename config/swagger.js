@@ -3,13 +3,19 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: "User Management API",
+      title: "API Document",
       version: "1.0.0",
       description: "API for managing users in the application",
     },
     servers: [
       {
         url: `http://${process.env.HOST}:${process.env.PORT}`,
+      },
+    ],
+     tags: [
+      {
+        name: 'Auth',
+        description: 'Authentication routes for user registration, login, and password management.',  // Mô tả nhóm "Authentication"
       },
     ],
   },

@@ -8,6 +8,8 @@ const router = express.Router();
  *   post:
  *     summary: Register a new user
  *     description: Register a new user and send a confirmation email.
+ *     tags:
+ *       - Auth
  *     parameters:
  *       - in: body
  *         name: user
@@ -53,6 +55,8 @@ router.post("/register", authController.register);
  *   get:
  *     summary: Confirm email for user
  *     description: Confirm a user's email by visiting this endpoint.
+ *     tags:
+ *       - Auth
  *     parameters:
  *       - in: path
  *         name: userId
@@ -74,6 +78,8 @@ router.get("/confirm/:userId", authController.confirmEmail);
  *   post:
  *     summary: Login a user
  *     description: Login a user with email and password.
+ *     tags:
+ *       - Auth
  *     parameters:
  *       - in: body
  *         name: user
@@ -107,6 +113,8 @@ router.post("/login", authController.login);
  *   post:
  *     summary: Request password reset
  *     description: Send an email with password reset instructions.
+ *     tags:
+ *       - Auth
  *     parameters:
  *       - in: body
  *         name: email
@@ -135,6 +143,8 @@ router.post("/forgot-password", authController.forgotPassword);
  *   get:
  *     summary: Get password reset form
  *     description: This endpoint provides the user with a form to reset the password.
+ *     tags:
+ *       - Auth
  *     parameters:
  *       - in: path
  *         name: userId
@@ -156,6 +166,8 @@ router.get("/reset-password/:userId", authController.resetPassword);
  *   post:
  *     summary: Reset user password
  *     description: Reset the user's password with a new one.
+ *     tags:
+ *       - Auth
  *     parameters:
  *       - in: path
  *         name: userId
