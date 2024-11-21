@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const { sendConfirmationEmail, sendResetPasswordEmail } = require("../mailer");
-const db = require("../models");
-const User = db.User;
+const User = require('../models/user.model');
 
 module.exports = {
   async register(req, res) {

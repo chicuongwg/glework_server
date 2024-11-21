@@ -136,6 +136,7 @@ router.post("/login", authController.login);
  *         description: User not found
  */
 router.post("/forgot-password", authController.forgotPassword);
+<<<<<<< HEAD:routes/auth.js
 
 /**
  * @swagger
@@ -160,6 +161,8 @@ router.post("/forgot-password", authController.forgotPassword);
  */
 router.get("/reset-password/:userId", authController.resetPassword);
 
+=======
+>>>>>>> 25ca639d86da0baf803dae9dee21415655243c05:routes/auth.route.js
 /**
  * @swagger
  * /auth/reset-password/{userId}:

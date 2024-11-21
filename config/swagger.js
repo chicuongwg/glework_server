@@ -17,6 +17,10 @@ const swaggerOptions = {
         name: 'Auth',
         description: 'Authentication routes for user registration, login, and password management.',  // Mô tả nhóm "Authentication"
       },
+      {
+        name: 'Users',
+        description: 'API for managing users',
+      },
     ],
   },
   apis: ["./controllers/*.js", "./routes/*.js"], // Đọc tài liệu swagger từ các file controllers và routes
