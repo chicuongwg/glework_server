@@ -1,7 +1,6 @@
 const nodemailer = require("nodemailer");
 const bcrypt = require('bcrypt');
-const db = require('./models'); // Import db để lấy mô hình User
-const User = db.User; // Lấy mô hình User từ db
+const User = require('./models/user.model'); // Đảm bảo đường dẫn này là chính xác
 
 // Set up transporter
 const transporter = nodemailer.createTransport({
