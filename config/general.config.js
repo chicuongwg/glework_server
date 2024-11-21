@@ -7,7 +7,7 @@ module.exports = {
         database: process.env.DB_NAME,
         dialect: process.env.DB_DIALECT,
     },
-    emailConfig: {
+    email: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },    

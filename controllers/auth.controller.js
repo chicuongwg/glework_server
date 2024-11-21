@@ -46,7 +46,7 @@ module.exports = {
             password: hashedPassword,
           });
 
-      const confirmationLink = `http://${process.env.HOST}:${process.env.PORT}/auth/confirm/${newUser.id}`;
+      const confirmationLink = `http://${process.env.DB_HOST}:${process.env.NODE_PORT}/auth/confirm/${newUser.id}`;
 
       await sendConfirmationEmail(firstName, lastName, email, confirmationLink);
 
@@ -144,7 +144,7 @@ module.exports = {
         return res.status(404).json({ message: "User not found." });
       }
 
-      const resetLink = `http://${process.env.HOST}:${process.env.PORT}/users/reset-password/${user.id}`;
+      const resetLink = `http://${process.env.DB_HOST}:${process.env.NODE_PORT}/users/reset-password/${user.id}`;
 
       await sendResetPasswordEmail(email, resetLink);
 

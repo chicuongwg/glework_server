@@ -1,5 +1,5 @@
 const express = require("express");
-const authController = require("../controllers/AuthCtrl");
+const authController = require("../controllers/auth.controller");
 const router = express.Router();
 
 /**
@@ -136,33 +136,6 @@ router.post("/login", authController.login);
  *         description: User not found
  */
 router.post("/forgot-password", authController.forgotPassword);
-<<<<<<< HEAD:routes/auth.js
-
-/**
- * @swagger
- * /auth/reset-password/{userId}:
- *   get:
- *     summary: Get password reset form
- *     description: This endpoint provides the user with a form to reset the password.
- *     tags:
- *       - Auth
- *     parameters:
- *       - in: path
- *         name: userId
- *         required: true
- *         description: User ID for password reset
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Password reset form available
- *       404:
- *         description: User not found
- */
-router.get("/reset-password/:userId", authController.resetPassword);
-
-=======
->>>>>>> 25ca639d86da0baf803dae9dee21415655243c05:routes/auth.route.js
 /**
  * @swagger
  * /auth/reset-password/{userId}:
