@@ -147,3 +147,239 @@ Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME 
 Executing (default): SHOW INDEX FROM `User`
 Cơ sở dữ liệu đã được đồng bộ hóa thành công.
 Server is running on http://localhost:3000
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): CREATE TABLE IF NOT EXISTS `User` (`id` INTEGER NOT NULL auto_increment , `firstName` VARCHAR(255) NOT NULL, `lastName` VARCHAR(255) NOT NULL, `dateOfBirth` DATE NOT NULL, `phoneNumber` VARCHAR(255) NOT NULL, `email` VARCHAR(255) NOT NULL UNIQUE, `password` VARCHAR(255) NOT NULL, `isConfirmed` TINYINT(1) DEFAULT false, `address` VARCHAR(255), `city` VARCHAR(255), `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthithpt@gmail.com';
+Executing (default): INSERT INTO `User` (`id`,`firstName`,`lastName`,`dateOfBirth`,`phoneNumber`,`email`,`password`,`isConfirmed`,`createdAt`,`updatedAt`) VALUES (DEFAULT,?,?,?,?,?,?,?,?,?);
+Email sent successfully to: lebadacluyenthithpt@gmail.com
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthithpt@gmail.com';
+Executing (default): UPDATE `User` SET `password`=?,`updatedAt`=? WHERE `id` = ?
+Email sent successfully to: lebadacluyenthithpt@gmail.com
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthivaolop10@gmail.com';
+Executing (default): INSERT INTO `User` (`id`,`firstName`,`lastName`,`dateOfBirth`,`phoneNumber`,`email`,`password`,`isConfirmed`,`createdAt`,`updatedAt`) VALUES (DEFAULT,?,?,?,?,?,?,?,?,?);
+Email sent successfully to: lebadacluyenthivaolop10@gmail.com
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthivaolop10@gmail.com';
+Executing (default): UPDATE `User` SET `password`=?,`updatedAt`=? WHERE `id` = ?
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthivaolop10@gmail.com';
+Executing (default): UPDATE `User` SET `password`=?,`updatedAt`=? WHERE `id` = ?
+Email sent successfully to: lebadacluyenthivaolop10@gmail.com
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthithpt@gmail.com';
+Executing (default): UPDATE `User` SET `firstName`=?,`lastName`=?,`dateOfBirth`=?,`phoneNumber`=?,`password`=?,`updatedAt`=? WHERE `id` = ?
+Email sent successfully to: lebadacluyenthithpt@gmail.com
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Bắt đầu đồng bộ hóa cơ sở dữ liệu...
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'User' AND TABLE_SCHEMA = 'Glework'
+Kết nối đến cơ sở dữ liệu thành công!
+Executing (default): SHOW FULL COLUMNS FROM `User`;
+Executing (default): SELECT CONSTRAINT_NAME as constraint_name,CONSTRAINT_NAME as constraintName,CONSTRAINT_SCHEMA as constraintSchema,CONSTRAINT_SCHEMA as constraintCatalog,TABLE_NAME as tableName,TABLE_SCHEMA as tableSchema,TABLE_SCHEMA as tableCatalog,COLUMN_NAME as columnName,REFERENCED_TABLE_SCHEMA as referencedTableSchema,REFERENCED_TABLE_SCHEMA as referencedTableCatalog,REFERENCED_TABLE_NAME as referencedTableName,REFERENCED_COLUMN_NAME as referencedColumnName FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'User' AND CONSTRAINT_NAME!='PRIMARY' AND CONSTRAINT_SCHEMA='Glework' AND REFERENCED_TABLE_NAME IS NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `firstName` `firstName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `lastName` `lastName` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `dateOfBirth` `dateOfBirth` DATE NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `phoneNumber` `phoneNumber` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `email` `email` VARCHAR(255) NOT NULL UNIQUE;
+Executing (default): ALTER TABLE `User` CHANGE `password` `password` VARCHAR(255) NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `isConfirmed` `isConfirmed` TINYINT(1) DEFAULT false;
+Executing (default): ALTER TABLE `User` CHANGE `address` `address` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `city` `city` VARCHAR(255);
+Executing (default): ALTER TABLE `User` CHANGE `createdAt` `createdAt` DATETIME NOT NULL;
+Executing (default): ALTER TABLE `User` CHANGE `updatedAt` `updatedAt` DATETIME NOT NULL;
+Executing (default): SHOW INDEX FROM `User`
+Cơ sở dữ liệu đã được đồng bộ hóa thành công.
+Server is running on http://localhost:3000
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthithpt@gmail.com';
+Executing (default): UPDATE `User` SET `password`=?,`updatedAt`=? WHERE `id` = ?
+Email sent successfully to: lebadacluyenthithpt@gmail.com
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`id` = '1';
+Executing (default): UPDATE `User` SET `isConfirmed`=?,`updatedAt`=? WHERE `id` = ?
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthithpt@gmail.com';
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthithpt@gmail.com';
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthithpt@gmail.com';
+Executing (default): UPDATE `User` SET `password`=?,`updatedAt`=? WHERE `id` = ?
+Reset password email sent successfully to: lebadacluyenthithpt@gmail.com
+Executing (default): SELECT `id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`, `email`, `password`, `isConfirmed`, `address`, `city`, `createdAt`, `updatedAt` FROM `User` AS `User` WHERE `User`.`email` = 'lebadacluyenthithpt@gmail.com';

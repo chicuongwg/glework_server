@@ -23,8 +23,11 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 const HOST = process.env.HOST || "localhost"; // Default to localhost
 const PORT = process.env.PORT || 3000; // Default to 3000
 
+console.log("Bắt đầu đồng bộ hóa cơ sở dữ liệu...");
+
 // Connect to the database and start the server
-db.sync({ alter: process.env.NODE_ENV === 'development' }) // Chỉ thay đổi cấu trúc bảng trong môi trường development
+db
+  .sync({ alter: process.env.NODE_ENV === 'development' }) // Chỉ thay đổi cấu trúc bảng trong môi trường development
   .then(() => {
     console.log("Cơ sở dữ liệu đã được đồng bộ hóa thành công.");
     app.listen(PORT, HOST, () => {
