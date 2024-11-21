@@ -1,5 +1,4 @@
-const db = require('../models'); // Import your User model
-const User = db.User;
+const User = require('../models/user.model');
 
 // Controller to update user information
 const updateUser = async (req, res) => {

@@ -1,5 +1,9 @@
-module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define("User", {
+const { DataTypes } = require("sequelize"); // Import DataTypes từ Sequelize
+const sequelize = require("../utils/sequelize.util"); // Import kết nối Sequelize
+
+const User = sequelize.define(
+    "User", // Tên mô hình
+    {
         firstName: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -19,8 +23,9 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
-            isEmail: true, // Validate email format
+                isEmail: true, 
             },
         },
         password: {
@@ -29,17 +34,20 @@ module.exports = (sequelize, DataTypes) => {
         },
         isConfirmed: {
             type: DataTypes.BOOLEAN,
-            defaultValue: false, // Mặc định là chưa xác nhận
+            defaultValue: false,
         },
         address: {
             type: DataTypes.STRING,
-            allowNull: true, // Not required
+            allowNull: true, 
         },
         city: {
             type: DataTypes.STRING,
-            allowNull: true, // Not required
+            allowNull: true, 
         },
-    });
+    },
+    {
+        freezeTableName: true, 
+    }
+);
 
-    return User;
-};
+module.exports = User;
