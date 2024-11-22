@@ -3,7 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocs = require("./config/swagger"); // Import Swagger configuration
-const switchModdingRouter = require("./routes/switchModding.routes");
+const switchModdingRouter = require("./routes/switchModding.route");
+const order = require("./routes/order.route");
 const db = require("./utils/sequelize.util"); // Import kết nối Sequelize
 const app = express();
 
@@ -17,6 +18,7 @@ const userRouter = require("./routes/user.route"); // Import user routes
 app.use("/auth", authRouter);
 app.use("/users", userRouter); // Add user routes
 app.use("/services/switch-modding", switchModdingRouter);
+app.use("/orders", order);
 // Serve API documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
