@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const { sendConfirmationEmail, sendResetPasswordEmail } = require("../mailer");
 const User = require('../models/user.model');
+const jwt = require('jsonwebtoken');
+const config = require('../config/general.config');
 
 module.exports = {
   async register(req, res) {
@@ -96,37 +98,43 @@ module.exports = {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required." });
+        return res.status(400).json({ message: "Email and password are required." });
     }
 
     try {
-      const user = await User.findOne({ where: { email } });
+        const user = await User.findOne({ where: { email } });
 
-      if (!user) {
-        return res.status(401).json({ message: "Invalid email or password." });
-      }
+        if (!user) {
+            return res.status(401).json({ message: "Invalid email or password." });
+        }
 
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(401).json({ message: "Invalid email or password." });
-      }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: "Invalid email or password." });
+        }
 
-      if (!user.isConfirmed) {
-        return res.status(403).json({ message: "Please confirm your email before logging in." });
-      }
+        if (!user.isConfirmed) {
+            return res.status(403).json({ message: "Please confirm your email before logging in." });
+        }
 
-      res.status(200).json({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        dateOfBirth: user.dateOfBirth,
-        phoneNumber: user.phoneNumber,
-        email: user.email,
-        message: "Login successful.",
-      });
+        // Generate JWT
+        const token = jwt.sign({ id: user.id, email: user.email }, config.jwt.secret, {
+            expiresIn: config.jwt.tokenLoginExpiredDays,
+        });
+
+        res.status(200).json({
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            dateOfBirth: user.dateOfBirth,
+            phoneNumber: user.phoneNumber,
+            email: user.email,
+            token,
+            message: "Login successful.",
+        });
     } catch (error) {
-      console.error("Error logging in:", error);
-      return res.status(500).json({ message: "Internal server error" });
+        console.error("Error logging in:", error);
+        return res.status(500).json({ message: "Internal server error." });
     }
   },
 
@@ -179,4 +187,59 @@ module.exports = {
       res.status(500).json({ message: "Internal server error." });
     }
   },
+
+  async logout(req, res) {
+    // Logic for logging out the user (e.g., invalidate the token)
+    res.status(200).json({ message: "User logged out successfully." });
+  },
+
+  async authCheck(req, res) {
+    // Logic to check if the user is authenticated
+    res.status(200).json({ message: "User is authenticated.", user: req.user });
+  },
+
+  async refreshToken(req, res) {
+    const { token } = req.body; // Assuming the token is sent in the body
+
+    if (!token) {
+        return res.status(401).json({ message: "No token provided." });
+    }
+
+    try {
+        const decoded = jwt.verify(token, config.jwt.secret);
+        const newToken = jwt.sign({ id: decoded.id, email: decoded.email }, config.jwt.secret, {
+            expiresIn: config.jwt.tokenLoginExpiredDays,
+        });
+
+        res.status(200).json({ token: newToken });
+    } catch (error) {
+        return res.status(400).json({ message: "Invalid token." });
+    }
+  },
+
+  async getUserById(req, res) {
+    const { userId } = req.params;
+
+    try {
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        // Return user information (excluding sensitive data like password)
+        res.status(200).json({
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
+            email: user.email,
+            dateOfBirth: user.dateOfBirth,
+            address: user.address,
+            city: user.city,
+        });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ message: "Internal server error." });
+    }
+  }
 };

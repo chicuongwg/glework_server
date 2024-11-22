@@ -44,6 +44,10 @@ const User = sequelize.define(
             type: DataTypes.STRING,
             allowNull: true, 
         },
+        token: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
     },
     {
         freezeTableName: true, 

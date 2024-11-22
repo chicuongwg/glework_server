@@ -1,5 +1,6 @@
 const express = require("express");
 const { updateUser } = require("../controllers/user.controller.js");
+const authenticate = require("../middlewares/auth.middelwares.js");
 
 const router = express.Router();
 
@@ -44,7 +45,7 @@ const router = express.Router();
  *               city:
  *                 type: string
  *                 description: City of the user
- *           example:   # This should be under the schema
+ *           example:
  *             firstName: John
  *             lastName: Doe
  *             phoneNumber: 1234567890
@@ -60,6 +61,6 @@ const router = express.Router();
  *         description: User not found
  */
 
-router.put("/update/:id", updateUser);
+router.put("/update/:id", authenticate, updateUser);
 
 module.exports = router;

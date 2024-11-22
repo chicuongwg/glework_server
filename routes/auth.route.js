@@ -1,6 +1,7 @@
 const express = require("express");
 const authController = require("../controllers/auth.controller");
 const router = express.Router();
+const authenticate = require("../middlewares/auth.middelwares");
 
 /**
  * @swagger
@@ -136,6 +137,7 @@ router.post("/login", authController.login);
  *         description: User not found
  */
 router.post("/forgot-password", authController.forgotPassword);
+
 /**
  * @swagger
  * /auth/reset-password/{userId}:
@@ -171,5 +173,39 @@ router.post("/forgot-password", authController.forgotPassword);
  *         description: User not found
  */
 router.post("/reset-password/:userId", authController.resetPassword);
+
+// User logout
+router.post("/logout", authController.logout);
+
+// Check authentication status
+router.get("/auth-check", authenticate, authController.authCheck);
+
+// Refresh access token
+router.post("/refresh-token", authController.refreshToken);
+
+/**
+ * @swagger
+ * /auth/user/{userId}:
+ *   get:
+ *     summary: Get user information by ID
+ *     description: Retrieve user details using the user ID.
+ *     tags:
+ *       - Auth
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: The ID of the user to retrieve
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: User information retrieved successfully
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get("/user/:userId", authenticate, authController.getUserById);
 
 module.exports = router;
