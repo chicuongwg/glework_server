@@ -28,7 +28,11 @@ const createOrder = async (req, res) => {
 const getOrders = async (req, res) => {
   try {
     const user_id = req.query.user_id; // Optional filter by user ID
-    const filter = user_id ? { where: { user_id }, include: [{ model: User, attributes: ['address'] }] } : {};
+
+    // Include the User model to fetch address
+    const filter = user_id
+      ? { where: { user_id }, include: [{ model: User, attributes: ["address"] }] }
+      : { include: [{ model: User, attributes: ["address"] }] };
 
     const orders = await Orders.findAll(filter);
 
@@ -39,12 +43,15 @@ const getOrders = async (req, res) => {
   }
 };
 
+
 // Get a single order by ID
 const getOrderById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const order = await Orders.findByPk(id);
+    const order = await Orders.findByPk(id, {
+      include: [{ model: User, attributes: ["address"] }],
+    });
 
     if (!order) {
       return res.status(404).json({ message: "Order not found." });
@@ -56,6 +63,7 @@ const getOrderById = async (req, res) => {
     res.status(500).json({ message: "An error occurred.", error });
   }
 };
+
 
 module.exports = {
   createOrder,

@@ -16,8 +16,7 @@ module.exports = {
       return res.status(400).json({ message: "Email must be a valid email address" });
     }
 
-    const [day, month, year] = dateOfBirth.split("-");
-    const formattedDateOfBirth = `${year}-${month}-${day}`;
+    const formattedDateOfBirth = dateOfBirth;
 
     if (!/^\+84\d{9,10}$/.test(phoneNumber)) {
       return res.status(400).json({ message: "Phone number must be a valid Vietnamese number" });
