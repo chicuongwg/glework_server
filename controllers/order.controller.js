@@ -1,4 +1,5 @@
 const Orders = require("../models/order.model");
+const User = require("../models/user.model");
 
 // Create a new order
 const createOrder = async (req, res) => {
@@ -27,7 +28,7 @@ const createOrder = async (req, res) => {
 const getOrders = async (req, res) => {
   try {
     const user_id = req.query.user_id; // Optional filter by user ID
-    const filter = user_id ? { where: { user_id } } : {};
+    const filter = user_id ? { where: { user_id }, include: [{ model: User, attributes: ['address'] }] } : {};
 
     const orders = await Orders.findAll(filter);
 
