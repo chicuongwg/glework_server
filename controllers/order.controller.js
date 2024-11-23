@@ -2,23 +2,32 @@ const Order = require("../models/order.model");
 const User = require("../models/user.model");
 const Service = require("../models/service.model");
 
-// Lấy danh sách đơn hàng
+// Lấy danh sách đơn hàng theo userId
 exports.getAllOrders = async (req, res) => {
+  const { userId } = req.query; // Lấy userId từ query string
+
   try {
     const orders = await Order.findAll({
+      where: { userId: userId }, // Lọc theo userId
       include: [
         {
           model: User,
-          attributes: ["firstName", "lastName", "email"],
+          attributes: ["address"],
         },
         {
           model: Service,
-          attributes: ["name", "description"],
+          attributes: ["name"],
         },
       ],
     });
+
+    if (orders.length === 0) {
+      return res.status(404).json({ message: 'No orders found for this user' });
+    }
+
     res.status(200).json(orders);
   } catch (error) {
+    console.error('Error fetching orders:', error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -32,7 +41,7 @@ exports.getOrderById = async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ["firstName", "lastName", "email"],
+          attributes: ["address"],
         },
         {
           model: Service,
@@ -66,26 +75,6 @@ exports.createOrder = async (req, res) => {
   }
 };
 
-// Cập nhật trạng thái đơn hàng
-exports.updateOrder = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { status, paymentStatus } = req.body;
-
-    const order = await Order.findByPk(id);
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-
-    order.status = status || order.status;
-    order.paymentStatus = paymentStatus || order.paymentStatus;
-    await order.save();
-
-    res.status(200).json(order);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
 // Xóa đơn hàng
 exports.deleteOrder = async (req, res) => {
