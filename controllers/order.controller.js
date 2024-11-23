@@ -61,13 +61,21 @@ exports.getOrderById = async (req, res) => {
 // Tạo đơn hàng mới
 exports.createOrder = async (req, res) => {
   try {
-    const { userId, serviceId, totalCost, status, paymentStatus } = req.body;
+    const { userId, serviceId, totalCost, status, paymentStatus, address, telephone } = req.body;
+
+    // Kiểm tra xem các trường có hợp lệ không
+    if (!userId || !serviceId || !totalCost || !address || !telephone) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
     const newOrder = await Order.create({
       userId,
       serviceId,
       totalCost,
       status,
       paymentStatus,
+      address,
+      telephone,
     });
     res.status(201).json(newOrder);
   } catch (error) {
