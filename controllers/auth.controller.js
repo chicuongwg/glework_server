@@ -37,6 +37,7 @@ module.exports = {
             dateOfBirth: formattedDateOfBirth,
             phoneNumber,
             password: hashedPassword,
+            role: existingUser.role || 'user',
           })
         : await User.create({
             firstName,
@@ -45,6 +46,7 @@ module.exports = {
             phoneNumber,
             email,
             password: hashedPassword,
+            role: 'user',
           });
 
       const confirmationLink = `http://${process.env.DB_HOST}:${process.env.NODE_PORT}/auth/confirm/${newUser.id}`;
@@ -128,6 +130,7 @@ module.exports = {
             dateOfBirth: user.dateOfBirth,
             phoneNumber: user.phoneNumber,
             email: user.email,
+            role: user.role,
             token,
             message: "Login successful.",
         });

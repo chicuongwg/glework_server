@@ -71,6 +71,7 @@ exports.createOrder = async (req, res) => {
     });
     res.status(201).json(newOrder);
   } catch (error) {
+    console.error("Error creating order:", error); // Log the error for debugging
     res.status(500).json({ error: error.message });
   }
 };
