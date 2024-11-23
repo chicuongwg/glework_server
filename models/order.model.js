@@ -40,6 +40,17 @@ const Order = sequelize.define(
       type: DataTypes.ENUM("Pending", "Completed", "Failed"),
       defaultValue: "Pending",
     },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false, // Địa chỉ là bắt buộc
+    },
+    telephone: {
+      type: DataTypes.STRING,
+      allowNull: false, // Số điện thoại là bắt buộc
+      validate: {
+        is: /^\+84[0-9]{9,12}$/, // Xác thực số điện thoại bắt đầu bằng +84 và theo sau là 9-12 chữ số
+      },
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
