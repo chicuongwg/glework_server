@@ -3,7 +3,6 @@ const express = require("express");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocs = require("./config/swagger"); // Import Swagger configuration
-const switchModdingRouter = require("./routes/switchModding.route");
 const orderRouter = require("./routes/order.route");
 const serviceRouter = require("./routes/service.route"); // Import service routes
 const orderDetailRouter = require("./routes/orderDetail.route"); // Import order detail routes
@@ -20,7 +19,6 @@ const authRouter = require("./routes/auth.route"); // Configure auth routes
 const userRouter = require("./routes/user.route"); // Import user routes
 app.use("/auth", authRouter);
 app.use("/users", userRouter); // Add user routes
-app.use("/services/switch-modding", switchModdingRouter);
 app.use("/orders", orderRouter); // Add order routes
 app.use("/services", serviceRouter); // Add service routes under /api
 app.use("/service-options", serviceOptionRoutes);
