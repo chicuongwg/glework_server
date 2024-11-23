@@ -11,8 +11,6 @@ router.get("/:id", orderController.getOrderById);
 // Tạo đơn hàng mới
 router.post("/", orderController.createOrder);
 
-// Cập nhật đơn hàng
-router.put("/:id", orderController.updateOrder);
 
 // Xóa đơn hàng
 router.delete("/:id", orderController.deleteOrder);
