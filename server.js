@@ -7,6 +7,7 @@ const switchModdingRouter = require("./routes/switchModding.route");
 const order = require("./routes/order.route");
 const serviceRouter = require("./routes/service.route"); // Import service routes
 const db = require("./utils/sequelize.util"); // Import kết nối Sequelize
+const serviceOptionRoutes = require("./routes/serviceOption.route");
 const app = express();
 
 // Middleware
@@ -21,6 +22,7 @@ app.use("/users", userRouter); // Add user routes
 app.use("/services/switch-modding", switchModdingRouter);
 app.use("/orders", order);
 app.use("/services", serviceRouter); // Add service routes under /api
+app.use("/service-options", serviceOptionRoutes);
 
 // Serve API documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
