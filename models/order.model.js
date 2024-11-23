@@ -1,46 +1,62 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/sequelize.util");
 const User = require("./user.model");
+const Service = require("./service.model");
 
-const Orders = sequelize.define(
-  "Orders",
+const Order = sequelize.define(
+  "Order",
   {
-    order_id: {
+    orderId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    service_type: {
-      type: DataTypes.ENUM("Switch", "Build"),
-      allowNull: false,
-    },
-    total_cost: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "User",
+        key: "id",
+      },
+      onDelete: "CASCADE",
     },
-    order_status: {
+    serviceId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Service",
+        key: "id",
+      },
+    },
+    totalCost: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    status: {
       type: DataTypes.ENUM("Pending", "Completed", "Canceled"),
       defaultValue: "Pending",
     },
-    payment_status: {
+    paymentStatus: {
       type: DataTypes.ENUM("Pending", "Completed", "Failed"),
       defaultValue: "Pending",
     },
-    created_at: {
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
   },
   {
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
   }
 );
 
-Orders.belongsTo(User, { foreignKey: 'user_id' });
+// Định nghĩa quan hệ
+Order.belongsTo(User, { foreignKey: "userId" });
+Order.belongsTo(Service, { foreignKey: "serviceId" });
 
-module.exports = Orders;
+module.exports = Order;

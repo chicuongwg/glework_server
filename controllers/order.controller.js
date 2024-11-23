@@ -1,72 +1,104 @@
-const Orders = require("../models/order.model");
+const Order = require("../models/order.model");
 const User = require("../models/user.model");
+const Service = require("../models/service.model");
 
-// Create a new order
-const createOrder = async (req, res) => {
+// Lấy danh sách đơn hàng
+exports.getAllOrders = async (req, res) => {
   try {
-    const { user_id, service_type, total_cost, payment_status } = req.body;
-
-    if (!service_type || !total_cost) {
-      return res.status(400).json({ message: "Required fields are missing." });
-    }
-
-    const newOrder = await Orders.create({
-      user_id,
-      service_type,
-      total_cost,
-      payment_status,
+    const orders = await Order.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["firstName", "lastName", "email"],
+        },
+        {
+          model: Service,
+          attributes: ["name", "description"],
+        },
+      ],
     });
-
-    res.status(201).json({ message: "Order created successfully!", order: newOrder });
-  } catch (error) {
-    console.error("Error creating order:", error);
-    res.status(500).json({ message: "An error occurred.", error });
-  }
-};
-
-// Get all orders (for admin or user-specific)
-const getOrders = async (req, res) => {
-  try {
-    const user_id = req.query.user_id; // Optional filter by user ID
-
-    // Include the User model to fetch address
-    const filter = user_id
-      ? { where: { user_id }, include: [{ model: User, attributes: ["address"] }] }
-      : { include: [{ model: User, attributes: ["address"] }] };
-
-    const orders = await Orders.findAll(filter);
-
     res.status(200).json(orders);
   } catch (error) {
-    console.error("Error fetching orders:", error);
-    res.status(500).json({ message: "An error occurred.", error });
+    res.status(500).json({ error: error.message });
   }
 };
 
-
-// Get a single order by ID
-const getOrderById = async (req, res) => {
+// Lấy chi tiết một đơn hàng
+exports.getOrderById = async (req, res) => {
   try {
     const { id } = req.params;
-
-    const order = await Orders.findByPk(id, {
-      include: [{ model: User, attributes: ["address"] }],
+    const order = await Order.findOne({
+      where: { orderId: id },
+      include: [
+        {
+          model: User,
+          attributes: ["firstName", "lastName", "email"],
+        },
+        {
+          model: Service,
+          attributes: ["name", "description"],
+        },
+      ],
     });
-
     if (!order) {
-      return res.status(404).json({ message: "Order not found." });
+      return res.status(404).json({ message: "Order not found" });
     }
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Tạo đơn hàng mới
+exports.createOrder = async (req, res) => {
+  try {
+    const { userId, serviceId, totalCost, status, paymentStatus } = req.body;
+    const newOrder = await Order.create({
+      userId,
+      serviceId,
+      totalCost,
+      status,
+      paymentStatus,
+    });
+    res.status(201).json(newOrder);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Cập nhật trạng thái đơn hàng
+exports.updateOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status, paymentStatus } = req.body;
+
+    const order = await Order.findByPk(id);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    order.status = status || order.status;
+    order.paymentStatus = paymentStatus || order.paymentStatus;
+    await order.save();
 
     res.status(200).json(order);
   } catch (error) {
-    console.error("Error fetching order:", error);
-    res.status(500).json({ message: "An error occurred.", error });
+    res.status(500).json({ error: error.message });
   }
 };
 
+// Xóa đơn hàng
+exports.deleteOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-module.exports = {
-  createOrder,
-  getOrders,
-  getOrderById,
+    const result = await Order.destroy({ where: { orderId: id } });
+    if (result === 0) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.status(200).json({ message: "Order deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };

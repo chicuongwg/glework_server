@@ -1,15 +1,20 @@
 const express = require("express");
-const { createOrder, getOrders, getOrderById } = require("../controllers/order.controller");
-
 const router = express.Router();
+const orderController = require("../controllers/order.controller");
 
-// Create a new order
-router.post("/", createOrder);
+// Lấy danh sách đơn hàng
+router.get("/", orderController.getAllOrders);
 
-// Get all orders or orders by user_id
-router.get("/", getOrders);
+// Lấy chi tiết đơn hàng theo ID
+router.get("/:id", orderController.getOrderById);
 
-// Get a single order by ID
-router.get("/:id", getOrderById);
+// Tạo đơn hàng mới
+router.post("/", orderController.createOrder);
+
+// Cập nhật đơn hàng
+router.put("/:id", orderController.updateOrder);
+
+// Xóa đơn hàng
+router.delete("/:id", orderController.deleteOrder);
 
 module.exports = router;
