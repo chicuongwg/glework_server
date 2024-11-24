@@ -9,6 +9,9 @@ const orderDetailRouter = require("./routes/orderDetail.route"); // Import order
 const db = require("./utils/sequelize.util"); // Import kết nối Sequelize
 const serviceOptionRoutes = require("./routes/serviceOption.route");
 const app = express();
+const createAdminUser = require('./scripts/createUser.script'); // Import the createAdminUser function
+const createService = require('./scripts/createService.script'); // Import the createService function
+const createServiceOption = require('./scripts/createServiceOption.script'); // Import the createServiceOption function
 
 // Middleware
 app.use(cors());
@@ -41,12 +44,26 @@ db
 
     // Run the createUser script
     try {
-      await require('./scripts/createUser.script.js');
-      console.log("User creation script executed successfully.");
+      await createAdminUser(); // Gọi hàm tạo người dùng admin
+      console.log("Admin user creation script executed successfully.");
     } catch (err) {
       console.error("Error executing user creation script:", err);
     }
 
+    // Run the createService script
+    try {
+      await createService(); // Gọi hàm tạo dịch vụ
+      console.log("Service creation script executed successfully.");
+    } catch (err) {
+      console.error("Error executing service creation script:", err);
+    }
+    try {
+      await createServiceOption(); // Gọi hàm tạo dịch vụ
+      console.log("Service creation script executed successfully.");
+    } catch (err) {
+      console.error("Error executing service creation script:", err);
+    }
+    // Kết nối đến cơ sở dữ liệu
     app.listen(PORT, HOST, () => {
       console.log(`Server is running on http://${HOST}:${PORT}`);
     });
