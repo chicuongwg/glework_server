@@ -1,11 +1,27 @@
 const OrderDetail = require("../models/orderDetail.model");
+const Order = require("../models/order.model");
+const User = require("../models/user.model");
 
 // Lấy danh sách chi tiết đơn hàng theo orderId
 exports.getOrderDetailsByOrderId = async (req, res) => {
   const { orderId } = req.params;
 
   try {
-    const orderDetails = await OrderDetail.findAll({ where: { orderId } });
+    const orderDetails = await OrderDetail.findAll({
+      where: { orderId },
+      include: [
+        {
+          model: Order,
+          attributes: ['telephone', 'address', 'createdAt', 'totalCost', 'status', 'paymentStatus'],
+          include: [
+            {
+              model: User,
+              attributes: ['firstName', 'lastName', 'email'],
+            },
+          ],
+        },
+      ],
+    });
 
     if (orderDetails.length === 0) {
       return res.status(404).json({ message: 'No order details found for this order' });
