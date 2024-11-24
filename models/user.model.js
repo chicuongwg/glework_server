@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize"); // Import DataTypes từ Sequelize
 const sequelize = require("../utils/sequelize.util"); // Import kết nối Sequelize
-
+const bcrypt = require('bcrypt');
 const User = sequelize.define(
     "User", // Tên mô hình
     {
@@ -57,5 +57,9 @@ const User = sequelize.define(
         freezeTableName: true, 
     }
 );
-
+User.beforeCreate(async (user) => {
+    if (user.password) {
+        user.password = await bcrypt.hash(user.password, 10); // Mã hóa mật khẩu
+    }
+});
 module.exports = User;

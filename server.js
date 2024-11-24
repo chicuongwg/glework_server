@@ -36,8 +36,17 @@ console.log("Bắt đầu đồng bộ hóa cơ sở dữ liệu...");
 // Connect to the database and start the server
 db
   .sync({ alter: process.env.NODE_ENV === 'development' }) // Chỉ thay đổi cấu trúc bảng trong môi trường development
-  .then(() => {
+  .then(async () => {
     console.log("Cơ sở dữ liệu đã được đồng bộ hóa thành công.");
+
+    // Run the createUser script
+    try {
+      await require('./scripts/createUser.script.js');
+      console.log("User creation script executed successfully.");
+    } catch (err) {
+      console.error("Error executing user creation script:", err);
+    }
+
     app.listen(PORT, HOST, () => {
       console.log(`Server is running on http://${HOST}:${PORT}`);
     });
