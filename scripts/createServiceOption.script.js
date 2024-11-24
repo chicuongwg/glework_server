@@ -107,8 +107,6 @@ async function createServiceOption() {
         isMultiple: false,
         optionGroup: 'Desoldering',
       },
-
-      // ServiceId 2 - Assembly Options
       {
         serviceId: 2,
         optionName: 'Less than 60 %',
@@ -149,7 +147,11 @@ async function createServiceOption() {
     // Kiểm tra và chèn ServiceOption nếu chưa có
     for (const option of serviceOptions) {
       const existingOption = await ServiceOption.findOne({
-        where: { serviceId: option.serviceId, optionName: option.optionName },
+        where: {
+          serviceId: option.serviceId,
+          optionName: option.optionName,
+          optionGroup: option.optionGroup,
+        },
       });
 
       if (!existingOption) {
@@ -164,7 +166,7 @@ async function createServiceOption() {
         });
         console.log(`ServiceOption "${option.optionName}" for serviceId ${option.serviceId} created.`);
       } else {
-        console.log(`ServiceOption "${option.optionName}" already exists for serviceId ${option.serviceId}.`);
+        console.log(`ServiceOption "${option.optionName}" already exists for serviceId ${option.serviceId} and optionGroup ${option.optionGroup}.`);
       }
     }
   } catch (err) {
