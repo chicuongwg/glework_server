@@ -33,7 +33,7 @@
         "DB_PASSWORD": "admin@1234",
         "DB_NAME": "Glework",
         "DB_DIALECT": "mysql",
-        "FRONTEND_URL": "http://localhost:5173",
+        "FRONTEND_URL": "http://13.229.198.180",
         "EMAIL_USER": "glework.sp@gmail.com",
         "EMAIL_PASS": "pjjpxhlioavvrzbc"
       }
