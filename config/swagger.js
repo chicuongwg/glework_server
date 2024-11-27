@@ -19,7 +19,23 @@ const swaggerOptions = {
       },
       {
         name: 'Users',
-        description: 'API for managing users',
+        description: 'Managing users',
+      },
+      {
+        name: 'Order',
+        description: 'Managing orders',
+      },
+      {
+        name: 'ServiceOption',
+        description: 'Managing service options related to services.',
+      },
+      {
+        name: 'Service',
+        description: 'Managing services.',
+      },
+      {
+        name: 'OrderDetail',
+        description: 'Managing order details.',
       },
     ],
   },

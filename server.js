@@ -31,14 +31,12 @@ app.use("/order-details", orderDetailRouter); // Add order detail routes
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Get environment variables from config
-const HOST = process.env.HOST || "localhost"; // Default to localhost
-const PORT = process.env.PORT || 3000; // Default to 3000
-
-console.log("Bắt đầu đồng bộ hóa cơ sở dữ liệu...");
+const HOST = config.DBConnectors.host; // Use DB_HOST from general.config
+const PORT = config.server.port; // Use DB_PORT from general.config
 
 // Connect to the database and start the server
 db
-  .sync({ alter: process.env.NODE_ENV === 'development' }) // Chỉ thay đổi cấu trúc bảng trong môi trường development
+  .sync({ alter: true }) // Always alter the table structure
   .then(async () => {
     console.log("Cơ sở dữ liệu đã được đồng bộ hóa thành công.");
 

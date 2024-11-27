@@ -15,4 +15,7 @@ module.exports = {
         secret: 'abxyz',
         tokenLoginExpiredDays: '1d'
     },
+    server: {
+        port: process.env.NODE_PORT,
+    },
 };
