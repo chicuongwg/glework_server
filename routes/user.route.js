@@ -6,7 +6,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /update/{id}:
+ * /users/{id}:
  *   put:
  *     tags:
  *       - Users
