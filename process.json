@@ -11,18 +11,31 @@
       "kill_timeout": 3000,
       "wait_ready": false,
       "listen_timeout": 3000,
+      "env_development": {
+        "NODE_ENV": "development",
+        "NODE_PORT": 3000,
+        "DB_HOST": "localhost",
+        "DB_PORT": "3306",
+        "DB_USER": "root",
+        "DB_PASSWORD": "admin@1234",
+        "DB_NAME": "Glework",
+        "DB_DIALECT": "mysql",
+        "FRONTEND_URL": "http://localhost:5173",
+        "EMAIL_USER": "glework.sp@gmail.com",
+        "EMAIL_PASS": "pjjpxhlioavvrzbc"
+      },
       "env_production": {
         "NODE_ENV": "production",
         "NODE_PORT": 3000,
         "DB_HOST": "localhost",
         "DB_PORT": "3306",
-        "DB_USER": "your-db-username",
-        "DB_PASSWORD": "your-db-password",
-        "DB_NAME": "your-db-name",
+        "DB_USER": "gleworkbe",
+        "DB_PASSWORD": "glework@1234",
+        "DB_NAME": "Glework",
         "DB_DIALECT": "mysql",
-        "FRONTEND_URL": "http://your-frontend-url",
-        "EMAIL_USER": "your-email-user",
-        "EMAIL_PASS": "your-email-password"
+        "FRONTEND_URL": "http://glework.io.vn",
+        "EMAIL_USER": "glework.sp@gmail.com",
+        "EMAIL_PASS": "pjjpxhlioavvrzbc"
       }
     }]
   }
