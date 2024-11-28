@@ -1,25 +1,28 @@
 const swaggerJsdoc = require("swagger-jsdoc");
+const config = require('../config/general.config');
 
+// Cập nhật cấu hình Swagger để sử dụng OpenAPI 3.0
 const swaggerOptions = {
   swaggerDefinition: {
+    openapi: "3.0.0", // Chỉ định sử dụng OpenAPI 3.0
     info: {
-      title: "API Document",
+      title: "API Documentation",
       version: "1.0.0",
-      description: "API for managing users in the application",
+      description: "API for managing users and other application entities",
     },
     servers: [
       {
-        url: `http://${process.env.HOST}:${process.env.PORT}`,
+        url: `http://${config.DBConnectors.host}:${config.server.port}`, // Cấu hình URL của server
       },
     ],
-     tags: [
+    tags: [
       {
         name: 'Auth',
-        description: 'Authentication routes for user registration, login, and password management.',  // Mô tả nhóm "Authentication"
+        description: 'Authentication routes for user registration, login, and password management.',
       },
       {
         name: 'Users',
-        description: 'Managing users',
+        description: 'Managing users in the application',
       },
       {
         name: 'Order',
@@ -31,17 +34,18 @@ const swaggerOptions = {
       },
       {
         name: 'Service',
-        description: 'Managing services.',
+        description: 'Managing services in the application',
       },
       {
         name: 'OrderDetail',
-        description: 'Managing order details.',
+        description: 'Managing order details',
       },
     ],
   },
-  apis: ["./controllers/*.js", "./routes/*.js"], // Đọc tài liệu swagger từ các file controllers và routes
+  apis: ["./controllers/*.js", "./routes/*.js"], // Đọc tài liệu Swagger từ các file controllers và routes
 };
 
+// Khởi tạo SwaggerDocs
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
 module.exports = swaggerDocs;

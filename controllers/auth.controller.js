@@ -49,7 +49,7 @@ module.exports = {
             role: 'user',
           });
 
-      const confirmationLink = `http://${process.env.DB_HOST}:${process.env.NODE_PORT}/auth/confirm/${newUser.id}`;
+      const confirmationLink = `http://${config.DBConnectors.host}:${config.server.port}/auth/confirm/${newUser.id}`;
 
       await sendConfirmationEmail(firstName, lastName, email, confirmationLink);
 

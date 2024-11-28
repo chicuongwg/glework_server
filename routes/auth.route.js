@@ -11,35 +11,42 @@ const authenticate = require("../middlewares/auth.middelwares");
  *     description: Register a new user and send a confirmation email.
  *     tags:
  *       - Auth
- *     parameters:
- *       - in: body
- *         name: user
- *         description: User registration details
- *         schema:
- *           type: object
- *           required:
- *             - firstName
- *             - lastName
- *             - dateOfBirth
- *             - phoneNumber
- *             - email
- *             - password
- *           properties:
- *             firstName:
- *               type: string
- *             lastName:
- *               type: string
- *             dateOfBirth:
- *               type: string
- *               description: Date of birth in format dd-mm-yyyy
- *             phoneNumber:
- *               type: string
- *               description: Phone number in Vietnamese format
- *             email:
- *               type: string
- *               format: email
- *             password:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstName
+ *               - lastName
+ *               - dateOfBirth
+ *               - phoneNumber
+ *               - email
+ *               - password
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *               dateOfBirth:
+ *                 type: string
+ *                 description: Date of birth in format dd-mm-yyyy
+ *               phoneNumber:
+ *                 type: string
+ *                 description: Phone number in Vietnamese format
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *             example:
+ *               firstName: "Dac"
+ *               lastName: "Le Ba"
+ *               dateOfBirth: "10-10-2003"
+ *               phoneNumber: "+84379211912"
+ *               email: "lebadacluyenthivaolop10@gmail.com"
+ *               password: "1234"
  *     responses:
  *       201:
  *         description: User registered successfully
@@ -47,8 +54,11 @@ const authenticate = require("../middlewares/auth.middelwares");
  *         description: Bad Request, validation error
  *       409:
  *         description: User already exists
+ *       500:
+ *         description: Internal server error
  */
 router.post("/register", authController.register);
+
 
 /**
  * @swagger
@@ -65,11 +75,14 @@ router.post("/register", authController.register);
  *         description: The user ID for email confirmation
  *         schema:
  *           type: integer
+ *           example: 3 # Example value for the userId
  *     responses:
  *       200:
  *         description: User email confirmed successfully
  *       404:
  *         description: User not found
+ *       500:
+ *         description: Internal server error
  */
 router.get("/confirm/:userId", authController.confirmEmail);
 
@@ -81,21 +94,23 @@ router.get("/confirm/:userId", authController.confirmEmail);
  *     description: Login a user with email and password.
  *     tags:
  *       - Auth
- *     parameters:
- *       - in: body
- *         name: user
- *         description: User login details
- *         schema:
- *           type: object
- *           required:
- *             - email
- *             - password
- *           properties:
- *             email:
- *               type: string
- *               format: email
- *             password:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "lebadacluyenthithpt@gmail.com"  # Example email
+ *               password:
+ *                 type: string
+ *                 example: "1234"  # Example password
  *     responses:
  *       200:
  *         description: User logged in successfully
@@ -116,18 +131,19 @@ router.post("/login", authController.login);
  *     description: Send an email with password reset instructions.
  *     tags:
  *       - Auth
- *     parameters:
- *       - in: body
- *         name: email
- *         description: User email for password reset
- *         schema:
- *           type: object
- *           required:
- *             - email
- *           properties:
- *             email:
- *               type: string
- *               format: email
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "lebadacluyenthithpt@gmail.com"  # Example email
  *     responses:
  *       200:
  *         description: Password reset email sent successfully
@@ -153,17 +169,19 @@ router.post("/forgot-password", authController.forgotPassword);
  *         description: The user ID for resetting password
  *         schema:
  *           type: integer
- *       - in: body
- *         name: newPassword
- *         description: New password to reset
- *         schema:
- *           type: object
- *           required:
- *             - newPassword
- *           properties:
- *             newPassword:
- *               type: string
- *               description: The new password for the user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - newPassword
+ *             properties:
+ *               newPassword:
+ *                 type: string
+ *                 description: The new password for the user
+ *                 example: "123456"  # Example new password
  *     responses:
  *       200:
  *         description: Password reset successfully
@@ -173,6 +191,7 @@ router.post("/forgot-password", authController.forgotPassword);
  *         description: User not found
  */
 router.post("/reset-password/:userId", authController.resetPassword);
+
 
 // User logout
 router.post("/logout", authController.logout);
@@ -191,6 +210,8 @@ router.post("/refresh-token", authController.refreshToken);
  *     description: Retrieve user details using the user ID.
  *     tags:
  *       - Auth
+ *     security:
+ *       - bearerAuth: []  # Yêu cầu xác thực bằng Bearer Token
  *     parameters:
  *       - in: path
  *         name: userId
@@ -198,14 +219,46 @@ router.post("/refresh-token", authController.refreshToken);
  *         description: The ID of the user to retrieve
  *         schema:
  *           type: integer
+ *           example: 1  # Example user ID to retrieve
  *     responses:
  *       200:
  *         description: User information retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 userId:
+ *                   type: integer
+ *                 firstName:
+ *                   type: string
+ *                 lastName:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                   format: email
+ *                 phoneNumber:
+ *                   type: string
+ *                 dateOfBirth:
+ *                   type: string
+ *                   description: Date of birth in format dd-mm-yyyy
  *       404:
  *         description: User not found
  *       500:
  *         description: Internal server error
  */
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT  # Định dạng token JWT
+ */
 router.get("/user/:userId", authenticate, authController.getUserById);
+
+
 
 module.exports = router;
