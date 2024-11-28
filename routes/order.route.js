@@ -183,7 +183,7 @@ router.get("/:id", orderController.getOrderById);
  *             properties:
  *               userId:
  *                 type: integer
- *                 example: 1
+ *                 example: 2
  *               serviceId:
  *                 type: integer
  *                 example: 1
@@ -236,6 +236,9 @@ router.post("/", orderController.createOrder);
  *                 type: string
  *               paymentStatus:
  *                 type: string
+ *             example:
+ *               status: "Finished"
+ *               paymentStatus: "Paid"
  *     responses:
  *       200:
  *         description: Order status updated successfully.

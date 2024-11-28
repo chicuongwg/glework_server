@@ -21,7 +21,7 @@ const swaggerOptions = {
         description: 'Authentication routes for user registration, login, and password management.',
       },
       {
-        name: 'Users',
+        name: 'User',
         description: 'Managing users in the application',
       },
       {
