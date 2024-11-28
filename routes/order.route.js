@@ -8,7 +8,7 @@ const orderController = require("../controllers/order.controller");
  *   get:
  *     tags:
  *       - Order
- *     summary: Retrieve all orders without user filter
+ *     summary: Retrieve all orders 
  *     description: Returns a list of all orders in the system without filtering by user.
  *     responses:
  *       200:
@@ -46,7 +46,7 @@ const orderController = require("../controllers/order.controller");
  *         description: Internal server error.
  */
 
-router.get("/all", orderController.getAllOrdersWithoutUserFilter);
+router.get("/", orderController.getAllOrders);
 
 // Lấy danh sách đơn hàng theo userId
 /**
@@ -59,7 +59,7 @@ router.get("/all", orderController.getAllOrdersWithoutUserFilter);
  *     description: Returns a list of orders for a specific user based on userId.
  *     parameters:
  *       - name: userId
- *         in: query
+ *         in: path
  *         required: true
  *         description: The ID of the user to retrieve orders for.
  *         schema:
@@ -101,7 +101,7 @@ router.get("/all", orderController.getAllOrdersWithoutUserFilter);
  *       500:
  *         description: Internal server error.
  */
-router.get("/", orderController.getAllOrders);
+router.get("/user/:userId", orderController.getAllOrdersWithUserId);
 
 // Lấy chi tiết đơn hàng theo ID
 /**
@@ -157,71 +157,57 @@ router.get("/", orderController.getAllOrders);
 router.get("/:id", orderController.getOrderById);
 
 // Tạo đơn hàng mới
+
 /**
  * @swagger
  * /orders:
  *   post:
- *     tags:
- *       - Order
  *     summary: Create a new order
  *     description: Creates a new order in the system.
+ *     tags:
+ *       - Order
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - userId
+ *               - serviceId
+ *               - totalCost
+ *               - status
+ *               - paymentStatus
+ *               - address
+ *               - telephone
  *             properties:
  *               userId:
  *                 type: integer
+ *                 example: 1
  *               serviceId:
  *                 type: integer
+ *                 example: 1
  *               totalCost:
  *                 type: integer
- *               status:
- *                 type: string
- *               paymentStatus:
- *                 type: string
+ *                 example: 1000
  *               address:
  *                 type: string
+ *                 example: "UIT, HCM"
  *               telephone:
  *                 type: string
+ *                 example: "+84379211913"
  *     responses:
  *       201:
- *         description: Order created successfully.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 orderId:
- *                   type: integer
- *                 userId:
- *                   type: integer
- *                 serviceId:
- *                   type: integer
- *                 totalCost:
- *                   type: integer
- *                 status:
- *                   type: string
- *                 paymentStatus:
- *                   type: string
- *                 address:
- *                   type: string
- *                 telephone:
- *                   type: string
- *                 createdAt:
- *                   type: string
- *                   format: date-time
- *                 updatedAt:
- *                   type: string
- *                   format: date-time
+ *         description: Order created successfully
  *       400:
- *         description: Missing required fields.
+ *         description: Missing required fields or invalid data
  *       500:
- *         description: Internal server error.
+ *         description: Internal server error
  */
 router.post("/", orderController.createOrder);
+
+
+
 
 // Cập nhật trạng thái đơn hàng theo ID
 /**

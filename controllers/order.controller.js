@@ -2,13 +2,41 @@ const Order = require("../models/order.model");
 const User = require("../models/user.model");
 const Service = require("../models/service.model");
 
-// Lấy danh sách đơn hàng theo userId
+// Lấy tất cả đơn hàng
 exports.getAllOrders = async (req, res) => {
-  const { userId } = req.query; // Lấy userId từ query string
+    try {
+      const orders = await Order.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ["firstName", "lastName"],
+          },
+          {
+            model: Service,
+            attributes: ["id", "name"],
+          },
+        ],
+      });
+  
+      console.log('Orders:', orders);
+  
+      if (orders.length === 0) {
+        return res.status(404).json({ message: "No orders found" });
+      }
+  
+      res.status(200).json(orders);
+    } catch (error) {
+      console.error('Error fetching all orders:', error);
+      res.status(500).json({ error: error.message });
+    }
+  };
+// Lấy danh sách đơn hàng theo userId
+exports.getAllOrdersWithUserId = async (req, res) => {
+  const { userId } = req.params;
 
   try {
     const orders = await Order.findAll({
-      where: { userId: userId }, // Lọc theo userId
+      where: { userId: userId },
       include: [
         {
           model: User,
@@ -69,26 +97,48 @@ exports.createOrder = async (req, res) => {
   try {
     const { userId, serviceId, totalCost, status, paymentStatus, address, telephone } = req.body;
 
-    // Kiểm tra xem các trường có hợp lệ không
+    // Kiểm tra xem các trường bắt buộc có hợp lệ không
     if (!userId || !serviceId || !totalCost || !address || !telephone) {
-      return res.status(400).json({ message: "Missing required fields" });
+      return res.status(400).json({ message: "Missing required fields", missingFields: ["userId", "serviceId", "totalCost", "address", "telephone"] });
     }
 
+    // Kiểm tra các trường có giá trị hợp lệ nếu cần
+    if (typeof totalCost !== 'number' || totalCost <= 0) {
+      return res.status(400).json({ message: "Total cost must be a positive number" });
+    }
+
+    // Nếu không có status và paymentStatus, gán mặc định
+    const orderStatus = status || 'Pending'; // Gán "Pending" mặc định
+    const orderPaymentStatus = paymentStatus || 'Pending'; // Gán "Pending" mặc định
+
+    // Kiểm tra điện thoại có đúng định dạng hay không (Ví dụ: Định dạng Việt Nam)
+    const phoneRegex = /^(\+84|0)[3|5|7|8|9]\d{8}$/; // Kiểm tra điện thoại Việt Nam
+    if (!phoneRegex.test(telephone)) {
+      return res.status(400).json({ message: "Invalid telephone format" });
+    }
+
+    // Tạo đơn hàng mới
     const newOrder = await Order.create({
       userId,
       serviceId,
       totalCost,
-      status,
-      paymentStatus,
+      status: orderStatus,
+      paymentStatus: orderPaymentStatus,
       address,
       telephone,
     });
-    res.status(201).json(newOrder);
+
+    return res.status(201).json(newOrder);
   } catch (error) {
-    console.error("Error creating order:", error); // Log the error for debugging
-    res.status(500).json({ error: error.message });
+    console.error("Error creating order:", error); // Log lỗi chi tiết để dễ debug
+    // Kiểm tra loại lỗi và trả về thông báo phù hợp
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(409).json({ message: "Order with this data already exists" });
+    }
+    return res.status(500).json({ error: "Internal server error", message: error.message });
   }
 };
+
 
 
 // Xóa đơn hàng
@@ -107,34 +157,7 @@ exports.deleteOrder = async (req, res) => {
   }
 };
 
-// Lấy tất cả đơn hàng
-exports.getAllOrdersWithoutUserFilter = async (req, res) => {
-  try {
-    const orders = await Order.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ["firstName", "lastName"],
-        },
-        {
-          model: Service,
-          attributes: ["id", "name"],
-        },
-      ],
-    });
 
-    console.log('Orders:', orders);
-
-    if (orders.length === 0) {
-      return res.status(404).json({ message: "No orders found" });
-    }
-
-    res.status(200).json(orders);
-  } catch (error) {
-    console.error('Error fetching all orders:', error);
-    res.status(500).json({ error: error.message });
-  }
-};
 
 // Cập nhật trạng thái đơn hàng và trạng thái thanh toán theo ID
 exports.updateOrderStatus = async (req, res) => {
