@@ -9,7 +9,9 @@ const router = express.Router();
  * /users/{id}:
  *   put:
  *     tags:
- *       - Users
+ *       - User
+*     security:
+ *       - bearerAuth: []  # Yêu cầu xác thực bằng Bearer Token
  *     summary: Update user information
  *     description: Updates the details of a user by ID.
  *     parameters:
@@ -38,7 +40,7 @@ const router = express.Router();
  *               dateOfBirth:
  *                 type: string
  *                 format: date
- *                 description: Date of birth of the user
+ *                 description: Date of birth of the user in YYYY-MM-DD format
  *               address:
  *                 type: string
  *                 description: Address of the user
@@ -46,21 +48,45 @@ const router = express.Router();
  *                 type: string
  *                 description: City of the user
  *           example:
- *             firstName: John
- *             lastName: Doe
- *             phoneNumber: 1234567890
- *             dateOfBirth: 1990-01-01
- *             address: 123 Main St
- *             city: Anytown
+ *             firstName: Nam
+ *             lastName: Le
+ *             phoneNumber: "+84985796985"
+ *             dateOfBirth: "2004-09-09"
+ *             address: UIT
+ *             city: HCM
  *     responses:
  *       200:
  *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User updated successfully"
  *       400:
- *         description: Bad request
+ *         description: Bad request, invalid data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid input data"
  *       404:
- *         description: User not found
+ *         description: User not found with the given ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User not found"
  */
 
-router.put("/update/:id", authenticate, updateUser);
+router.put("/:id", authenticate, updateUser);
 
 module.exports = router;

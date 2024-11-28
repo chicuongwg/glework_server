@@ -63,6 +63,10 @@ router.get("/:orderId", orderDetailController.getOrderDetailsByOrderId);
  *                 type: string
  *               fieldValue:
  *                 type: string
+ *             example:
+ *               orderId: 1
+ *               fieldName: "Switch Name"
+ *               fieldValue: "DPDT"
  *     responses:
  *       201:
  *         description: Order detail created successfully.
@@ -86,53 +90,5 @@ router.get("/:orderId", orderDetailController.getOrderDetailsByOrderId);
  */
 router.post("/", orderDetailController.createOrderDetail);
 
-/**
- * @swagger
- * /order-details/{id}:
- *   put:
- *     tags:
- *       - OrderDetail
- *     summary: Update an order detail
- *     description: Updates the details of a specific order detail based on ID.
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: The ID of the order detail to update.
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               fieldName:
- *                 type: string
- *               fieldValue:
- *                 type: string
- *     responses:
- *       200:
- *         description: Order detail updated successfully.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                 orderId:
- *                   type: integer
- *                 fieldName:
- *                   type: string
- *                 fieldValue:
- *                   type: string
- *       404:
- *         description: Order detail not found.
- *       500:
- *         description: Internal server error.
- */
-router.put("/:id", orderDetailController.updateOrderDetail);
 
 module.exports = router;
