@@ -7,7 +7,7 @@ async function createAdminUser() {
     const existingAdmin = await User.findOne({ where: { email: adminEmail } });
 
     if (!existingAdmin) {
-      const hashedPassword = await bcrypt.hash('1234', 10);
+      const hashedPassword = await bcrypt.hash('123456789@', 10);
 
       const newAdmin = await User.create({
         firstName: 'Glework',

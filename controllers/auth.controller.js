@@ -16,6 +16,10 @@ module.exports = {
       return res.status(400).json({ message: "Email must be a valid email address" });
     }
 
+    if (password.length < 8 || !/[!@#$%^&*%]/.test(password)) {
+      return res.status(400).json({ message: "Password must be at least 8 characters and contain at least 1 special character (@, $, #, *, !, %, &)." });
+    }
+
     const formattedDateOfBirth = dateOfBirth;
 
     if (!/^\+84\d{9,10}$/.test(phoneNumber)) {
