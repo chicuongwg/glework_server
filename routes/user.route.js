@@ -131,17 +131,17 @@ router.put("/:id", authenticate, updateUser); // Route to update user by ID
 
 /**
  * @swagger
- * /auth/user/{userId}:
+ * /users/{id}:
  *   get:
  *     summary: Get user information by ID
  *     description: Retrieve user details using the user ID.
  *     tags:
- *       - Auth
+ *       - User
  *     security:
  *       - bearerAuth: []  # Yêu cầu xác thực bằng Bearer Token
  *     parameters:
  *       - in: path
- *         name: userId
+ *         name: id
  *         required: true
  *         description: The ID of the user to retrieve
  *         schema:
