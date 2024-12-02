@@ -219,29 +219,4 @@ module.exports = {
     }
   },
 
-  async getUserById(req, res) {
-    const { userId } = req.params;
-
-    try {
-        const user = await User.findByPk(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found." });
-        }
-
-        // Return user information (excluding sensitive data like password)
-        res.status(200).json({
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber: user.phoneNumber,
-            email: user.email,
-            dateOfBirth: user.dateOfBirth,
-            address: user.address,
-            city: user.city,
-        });
-    } catch (error) {
-        console.error("Error fetching user:", error);
-        res.status(500).json({ message: "Internal server error." });
-    }
-  }
 };

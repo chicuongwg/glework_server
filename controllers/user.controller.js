@@ -40,6 +40,45 @@ const updateUser = async (req, res) => {
   }
 };
 
+// New controller to get all users
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll(); // Fetch all users from the database
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+};
+
+const getUserById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const user = await User.findByPk(id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        // Return user information (excluding sensitive data like password)
+        res.status(200).json({
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
+            email: user.email,
+            dateOfBirth: user.dateOfBirth,
+            address: user.address,
+            city: user.city,
+        });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ message: "Internal server error." });
+    }
+}
+
 module.exports = {
   updateUser,
+  getAllUsers, // Export the new function
+  getUserById,
 };

@@ -202,62 +202,7 @@ router.get("/auth-check", authenticate, authController.authCheck);
 // Refresh access token
 router.post("/refresh-token", authController.refreshToken);
 
-/**
- * @swagger
- * /auth/user/{userId}:
- *   get:
- *     summary: Get user information by ID
- *     description: Retrieve user details using the user ID.
- *     tags:
- *       - Auth
- *     security:
- *       - bearerAuth: []  # Yêu cầu xác thực bằng Bearer Token
- *     parameters:
- *       - in: path
- *         name: userId
- *         required: true
- *         description: The ID of the user to retrieve
- *         schema:
- *           type: integer
- *           example: 1  # Example user ID to retrieve
- *     responses:
- *       200:
- *         description: User information retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 userId:
- *                   type: integer
- *                 firstName:
- *                   type: string
- *                 lastName:
- *                   type: string
- *                 email:
- *                   type: string
- *                   format: email
- *                 phoneNumber:
- *                   type: string
- *                 dateOfBirth:
- *                   type: string
- *                   description: Date of birth in format dd-mm-yyyy
- *       404:
- *         description: User not found
- *       500:
- *         description: Internal server error
- */
 
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT  # Định dạng token JWT
- */
-router.get("/user/:userId", authenticate, authController.getUserById);
 
 
 
