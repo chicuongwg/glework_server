@@ -2,13 +2,16 @@
 FROM node:18
 
 # Set the working directory inside the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
 # Install the dependencies
 RUN npm install
+
+# Install pm2 globally
+RUN npm install -g pm2
 
 # Copy the rest of the application code to the working directory
 COPY . .
@@ -17,4 +20,4 @@ COPY . .
 EXPOSE 3000
 
 # Define the command to run the application
-CMD ["npm", "start"]
+CMD ["pm2-runtime", "start", "process.json", "--env", "development"]
