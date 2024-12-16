@@ -1,23 +1,18 @@
-# Use the official Node.js image as the base image
-FROM node:18
+# Base image
+FROM node:16-alpine
 
-# Set the working directory inside the container
-WORKDIR /app
+# Set working directory
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the working directory
+# Install dependencies
 COPY package*.json ./
+RUN npm install -g pm2 && npm install
 
-# Install the dependencies
-RUN npm install
-
-# Install pm2 globally
-RUN npm install -g pm2
-
-# Copy the rest of the application code to the working directory
+# Copy application code
 COPY . .
 
-# Expose the port the app runs on
+# Expose port
 EXPOSE 3000
 
-# Define the command to run the application
+# Run application
 CMD ["pm2-runtime", "start", "process.json", "--env", "development"]

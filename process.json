@@ -1,42 +1,44 @@
-{
+  {
     "apps": [{
-      "name": "glework",
-      "script": "./server.js",
-      "error_file": "./logs/err_main.log",
-      "out_file": "./logs/out_main.log",
-      "instances": 1,
-      "exec_mode": "cluster",
-      "watch": true,
-      "ignore_watch": ["node_modules", "public", "logs"],
-      "kill_timeout": 3000,
-      "wait_ready": false,
-      "listen_timeout": 3000,
-      "env_development": {
-        "NODE_ENV": "development",
-        "NODE_PORT": 3000,
-        "DB_HOST": "localhost",
-        "DB_PORT": "3306",
-        "DB_USER": "root",
-        "DB_PASSWORD": "2803",
-        "DB_NAME": "Glework",
-        "DB_DIALECT": "mysql",
-        "FRONTEND_URL": "http://localhost:5173",
-        "EMAIL_USER": "glework.sp@gmail.com",
-        "EMAIL_PASS": "pjjpxhlioavvrzbc"
-      },
-      "env_production": {
-        "NODE_ENV": "production",
-        "NODE_PORT": 3000,
-        "DB_HOST": "0.0.0.0",
-        "DB_PORT": "3306",
-        "DB_USER": "gleworkbe",
-        "DB_PASSWORD": "glework@1234",
-        "DB_NAME": "Glework",
-        "DB_DIALECT": "mysql",
-        "FRONTEND_URL": "http://glework.io.vn",
-        "EMAIL_USER": "glework.sp@gmail.com",
-        "EMAIL_PASS": "pjjpxhlioavvrzbc"
+        "name": "glework_backend",
+        "script": "./server.js",
+        "error_file": "./logs/err_main.log",
+        "out_file": "./logs/out_main.log",
+        "instances": 1,
+        "exec_mode": "cluster",
+        "watch": true,
+        "ignore_watch": ["node_modules", "public", "logs"],
+        "kill_timeout": 3000,
+        "wait_ready": false,
+        "listen_timeout": 3000,
+        "env_development": {
+          "NODE_ENV": "development",
+          "NODE_PORT": 3000,
+          "DB_HOST": "db",                     
+          "DB_PORT": "3306",
+          "DB_USER": "root",
+          "DB_PASSWORD": "2803",            
+          "DB_NAME": "Glework",
+          "DB_DIALECT": "mysql",
+          "FRONTEND_URL": "http://localhost:8080", 
+          "EMAIL_USER": "glework.sp@gmail.com",
+          "EMAIL_PASS": "pjjpxhlioavvrzbc"
+        },
+        "env_production": {
+          "NODE_ENV": "production",
+          "NODE_PORT": 3000,
+          "DB_HOST": "db",
+          "DB_PORT": "3306",
+          "DB_USER": "root",
+          "DB_PASSWORD": "glework@1234",
+          "DB_NAME": "Glework",
+          "DB_DIALECT": "mysql",
+          "FRONTEND_URL": "http://glework.io.vn",
+          "EMAIL_USER": "glework.sp@gmail.com",
+          "EMAIL_PASS": "pjjpxhlioavvrzbc"
+          }
       }
-    }]
+    ]
   }
+  
   
