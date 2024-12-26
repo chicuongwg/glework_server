@@ -13,7 +13,7 @@
         "listen_timeout": 3000,
         "env_development": {
           "NODE_ENV": "development",
-          "NODE_PORT": 3000,
+          "NODE_PORT": 3001,
           "DB_HOST": "db",                     
           "DB_PORT": "3306",
           "DB_USER": "root",
@@ -26,7 +26,7 @@
         },
         "env_production": {
           "NODE_ENV": "production",
-          "NODE_PORT": 3000,
+          "NODE_PORT": 3001,
           "DB_HOST": "db",
           "DB_PORT": "3306",
           "DB_USER": "root",
